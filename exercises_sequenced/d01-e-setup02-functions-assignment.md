@@ -24,13 +24,22 @@ Basics](https://rstudio.cloud/learn/primers/1.2). *Topics*: `functions`,
 
 ``` r
 ## rnorm
+## rnorm(n, mean = 0, sd = 1)
+## .Call(C_rnorm,n, mean, sd
+## <bytecode: 0x7fd6458d8b00>
+## <environment: namespace:stats>)
 ```
 
 ### **q3** Using either the documentation or the source, determine the arguments for `rnorm`.
 
+n = number of obersvations mean = mean of the normal sd = standrad
+dervation of normal
+
 ### **q4** Scroll to the bottom of the help for the `library()` function. How do you
 
 list all available packages?
+
+library()
 
 The **examples** in the help documentation are often *extremely* helpful
 for learning how to use a function (or reminding yourself how its used)!

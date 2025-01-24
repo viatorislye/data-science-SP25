@@ -29,14 +29,22 @@ function's use.
 
 ```{r rnorm-source}
 ## rnorm
+## rnorm(n, mean = 0, sd = 1)
+## .Call(C_rnorm,n, mean, sd
+## <bytecode: 0x7fd6458d8b00>
+## <environment: namespace:stats>)
 ```
 
 ### __q3__ Using either the documentation or the source, determine the arguments for `rnorm`.
 
+n = number of obersvations
+mean = mean of the normal
+sd = standrad dervation of normal
 
 ### __q4__ Scroll to the bottom of the help for the `library()` function. How do you
 list all available packages?
 
+library()
 
 The __examples__ in the help documentation are often *extremely* helpful for
 learning how to use a function (or reminding yourself how its used)! Get used to
