@@ -78,6 +78,14 @@ iris %>%
 
 ```{r q3-task}
 ## TODO: Re-write the code above following the tidyverse style guide
+iris %>%
+  group_by(Species) %>%
+  summarize(
+    Sepal.Length = mean(Sepal.Length), 
+    Sepal.Width = mean(Sepal.Width), 
+    Petal.Length = mean(Petal.Length), 
+    Petal.Width = mean(Petal.Width))
+
 ```
 
 The following is an *addition* I'm making to the "effective styleguide" for the
@@ -132,15 +140,14 @@ free to write code however you like!
 *Hint*: Put the data first!
 
 ```{r q4-description}
-ggplot(
+
   iris %>%
   pivot_longer(
     names_to = c("Part", ".value"),
     names_sep = "\\.",
     cols = -Species
-  ),
-  aes(Width, Length, color = Part)
-) +
+  ) %>%
+  ggplot(aes(Width, Length, color = Part)) +
   geom_point() +
   facet_wrap(~Species)
 ```

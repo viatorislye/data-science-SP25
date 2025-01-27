@@ -152,7 +152,21 @@ iris %>%
 
 ``` r
 ## TODO: Re-write the code above following the tidyverse style guide
+iris %>%
+  group_by(Species) %>%
+  summarize(
+    Sepal.Length = mean(Sepal.Length), 
+    Sepal.Width = mean(Sepal.Width), 
+    Petal.Length = mean(Petal.Length), 
+    Petal.Width = mean(Petal.Width))
 ```
+
+    ## # A tibble: 3 × 5
+    ##   Species    Sepal.Length Sepal.Width Petal.Length Petal.Width
+    ##   <fct>             <dbl>       <dbl>        <dbl>       <dbl>
+    ## 1 setosa             5.01        3.43         1.46       0.246
+    ## 2 versicolor         5.94        2.77         4.26       1.33 
+    ## 3 virginica          6.59        2.97         5.55       2.03
 
 The following is an *addition* I’m making to the “effective styleguide”
 for the class: Rather than doing this:
@@ -228,15 +242,13 @@ course) free to write code however you like!
 *Hint*: Put the data first!
 
 ``` r
-ggplot(
   iris %>%
   pivot_longer(
     names_to = c("Part", ".value"),
     names_sep = "\\.",
     cols = -Species
-  ),
-  aes(Width, Length, color = Part)
-) +
+  ) %>%
+  ggplot(aes(Width, Length, color = Part)) +
   geom_point() +
   facet_wrap(~Species)
 ```
