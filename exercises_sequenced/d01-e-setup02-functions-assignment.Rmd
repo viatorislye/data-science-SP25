@@ -38,7 +38,7 @@ function's use.
 ### __q3__ Using either the documentation or the source, determine the arguments for `rnorm`.
 
 n = number of obersvations
-mean = mean of the normal
+mean = mean of the normal 
 sd = standrad dervation of normal
 
 ### __q4__ Scroll to the bottom of the help for the `library()` function. How do you
