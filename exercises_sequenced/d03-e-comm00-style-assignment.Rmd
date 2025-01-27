@@ -34,6 +34,9 @@ summarize(group_by(diamonds, cut), mean_price = mean(price))
 
 ```{r q1-solution}
 ## TODO: Re-write the code above following the tidyverse style guide
+diamonds %>%
+  group_by(cut) %>%
+  summarise(mean_price = mean(price))
 ```
 
 ### __q2__ Re-write according to the style guide
@@ -53,6 +56,14 @@ iris %>%
 
 ```{r q2-solution}
 ## TODO: Re-write the code above following the tidyverse style guide
+
+iris %>%
+  mutate(Sepal.Area = Sepal.Length * Sepal.Width) %>%
+  group_by(Species) %>%
+  summarize_if(is.numeric, mean) %>%
+  ungroup() %>%
+  pivot_longer(names_to = "measure", values_to = "value", cols = -Species) %>%
+  arrange(value)
 ```
 
 ### __q3__ Re-write according to the style guide
