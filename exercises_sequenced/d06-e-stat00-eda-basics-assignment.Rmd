@@ -44,6 +44,7 @@ library(tidyverse)
 to do? Do those simple checks on the diamonds dataset below.
 
 ```{r q0-task}
+glimpse(diamonds)
 ```
 
 I'm going to walk you through a train of thought I had when studying the
@@ -72,6 +73,8 @@ diamonds %>%
 **Observations**:
 - Write your observations here!
 
+It was wrong as ideal is the most common cut (Because sparkle)
+
 ## Hypothesis 2
 
 **Another hypothesis**: The `Ideal` cut diamonds should be the most pricey.
@@ -79,6 +82,8 @@ diamonds %>%
 ### __q2.1__ Study the following graph; does it support, contradict, or not relate to hypothesis 2?
 
 *Hint*: Is this an effective graph? Why or why not?
+
+You can't read the graph at all
 
 ```{r q2.1-task}
 diamonds %>%
@@ -103,6 +108,7 @@ diamonds %>%
 
 **Observations**:
 - Write your observations here!
+Premium was more expensive than ideal on average
 
 ## Unraveling Hypothesis 2
 
@@ -123,6 +129,9 @@ diamonds %>%
 
 **Observations**:
 - Write your observations here!
+
+Bigger diamonds tend to be fair cut as to not get rid of more of the diamond
+The ideal diamonds are less carats
 
 ## Footnotes
 
