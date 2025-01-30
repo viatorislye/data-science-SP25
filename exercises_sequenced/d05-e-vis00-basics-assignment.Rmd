@@ -30,10 +30,12 @@ knitr::opts_chunk$set(echo = TRUE)
 *Hint*: We learned how to inspect a dataset in `e-data-00-basics`!
 
 ```{r q1-task, eval=FALSE}
+glimpse(diamonds)
 ```
 
 ### __q2__ Use your "standard checks" to determine what variables the dataset has.
 
+Variables: Carat,cut,color,clarity,depth,table,price,x,y,z
 
 Now that we have the list of variables in the dataset, we know what we can visualize!
 
@@ -46,7 +48,7 @@ y` pairs. Language is hard!
 
 ```{r q3-task}
 ## TODO: Complete this code
-ggplot(diamonds)
+ggplot(diamonds,aes(carat, price))+geom_point()
 ```
 
 **Observations**:
@@ -69,7 +71,7 @@ simultaneously.
 
 ```{r q4-task}
 ## TODO: Complete this code
-ggplot(diamonds)
+ggplot(diamonds,aes(carat, price, color = color))+geom_point()
 ```
 
 **Observations**:
