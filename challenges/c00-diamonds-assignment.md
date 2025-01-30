@@ -1,7 +1,7 @@
 Getting Started: Diamonds
 ================
-(Your name here)
-2020-
+Leslie Bostwick
+2025-01-27
 
 - [Grading Rubric](#grading-rubric)
   - [Individual](#individual)
@@ -99,23 +99,53 @@ document your observations.
 
 ``` r
 ## TASK: Plot `price` vs `carat` below
+diamonds %>% 
+  ggplot(aes(price,carat)) +
+  geom_point()
+```
+
+![](c00-diamonds-assignment_files/figure-gfm/q1-task-1.png)<!-- -->
+
+``` r
 ## Your code here!
 ```
 
 **Observations**:
 
 - (Write your observations here!)
+- Majority of diamonds are between 1 & 2 carats
+- The range of 1-2 carats diamonds have a price range of ~\$1000 to
+  ~19000
+- There is a general trend of the more carats a diamond is the more it
+  costs.
+
+Observations for Research - This data doesn’t state when this data was
+collects as diamond/engagement rings trends come and go - Was this data
+set sample over a specify store or region? - It’s references a different
+worksheet than the one it give plots in (d03-e-comm00-style)
 
 ### **q2** Create a visualization showing variables `carat`, `price`, and `cut` simultaneously. Experiment with which variable you assign to which aesthetic (`x`, `y`, etc.) to find an effective visual.
 
 ``` r
 ## TASK: Plot `price`, `carat`, and `cut` below
+diamonds %>% 
+  ggplot(aes(price,carat, color = cut)) +
+  geom_point()
+```
+
+![](c00-diamonds-assignment_files/figure-gfm/q2-task-1.png)<!-- -->
+
+``` r
 ## Your code here!
 ```
 
 **Observations**:
 
 - (Write your observations here!)
+- Along the same price point, the small carat diamond tend to have a
+  higher quality cut.
+- The majority of cut are very good, premium, & ideal across all price
+  point but the higher carat value had a worse cut.
 
 # Communication
 
