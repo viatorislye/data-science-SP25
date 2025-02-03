@@ -83,6 +83,9 @@ df_titanic %>% summarize(total = sum(n))
 
 ```{r q3-task}
 ## TASK: Visualize counts against `Class` and `Sex`
+df_titanic %>% 
+  filter(Survived == "Yes") %>% 
+  ggplot(aes(Class,n, fill= Sex))+geom_col()
 
 
 ```
@@ -115,6 +118,11 @@ df_prop
 ### __q4__ Replicate your visual from q3, but display `Prop` in place of `n`. Document your observations, and note any new/different observations you make in comparison with q3. Is there anything *fishy* in your plot?
 
 ```{r q4-task}
+df_prop %>% 
+  filter(Survived == "Yes") %>% 
+  ggplot(aes(Class,Prop, fill= Sex))+geom_col()
+
+
 ```
 
 **Observations**:
@@ -128,6 +136,19 @@ df_prop
 *Hint*: Don't forget that you can use `facet_grid` to help consider additional variables!
 
 ```{r q5-task}
+
+df_prop %>% 
+  filter(Survived == "Yes") %>%
+  filter(Sex == "Female") %>% 
+  ggplot(aes(Class,Prop, fill = Sex))+geom_col() + facet_grid(rows = "Age")
+```
+
+```{r q5-task2}
+df_prop %>% 
+  filter(Survived == "Yes") %>%
+  filter(Sex == "Male") %>% 
+  ggplot(aes(Class,Prop, fill = Sex))+geom_col() + facet_grid(rows = "Age")
+
 ```
 
 **Observations**:
