@@ -100,7 +100,7 @@ document your observations.
 ``` r
 ## TASK: Plot `price` vs `carat` below
 diamonds %>% 
-  ggplot(aes(price,carat)) +
+  ggplot(aes(carat,price)) +
   geom_point()
 ```
 
@@ -129,7 +129,7 @@ worksheet than the one it give plots in (d03-e-comm00-style)
 ``` r
 ## TASK: Plot `price`, `carat`, and `cut` below
 diamonds %>% 
-  ggplot(aes(price,carat, color = cut)) +
+  ggplot(aes(carat,price, color = cut)) +
   geom_point()
 ```
 

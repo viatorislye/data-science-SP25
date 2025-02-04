@@ -55,7 +55,7 @@ In this first stage, you will explore the `diamonds` dataset and document your o
 ```{r q1-task}
 ## TASK: Plot `price` vs `carat` below
 diamonds %>% 
-  ggplot(aes(price,carat)) +
+  ggplot(aes(carat,price)) +
   geom_point()
 ## Your code here!
 ```
@@ -77,7 +77,7 @@ Observations for Research
 ```{r q2-task}
 ## TASK: Plot `price`, `carat`, and `cut` below
 diamonds %>% 
-  ggplot(aes(price,carat, color = cut)) +
+  ggplot(aes(carat,price, color = cut)) +
   geom_point()
 ## Your code here!
 ```
