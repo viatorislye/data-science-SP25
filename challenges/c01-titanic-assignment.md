@@ -1,7 +1,7 @@
 RMS Titanic
 ================
-(Your name here)
-2020-
+Leslie Bostwick
+2025-2-5
 
 - [Grading Rubric](#grading-rubric)
   - [Individual](#individual)
@@ -137,9 +137,11 @@ df_titanic %>% summarize(total = sum(n))
 
 - Write your observations here
 - Are there any differences?
-  - (Your response here)
+  - Yes there are differences in the data set (2201 people) versus
+    wiki’s (2224).
 - If yes, what might account for those differences?
-  - (Your response here)
+  - These differences could be caused by stowways or crew not counted
+    properly or lost records.
   - …
 
 ### **q3** Create a plot showing the count of persons who *did* survive, along with aesthetics for `Class` and `Sex`. Document your observations below.
@@ -157,7 +159,9 @@ df_titanic %>%
 
 **Observations**:
 
-- Write your observations here
+- Crew had the highest number of people survived at over 200, followed
+  by 1st class (~200), 3rd (~175), & 2nd (~120). A lot more females than
+  males survived in the passenger categories versus crew.
 
 # Deeper Look
 
@@ -217,8 +221,11 @@ df_prop %>%
 **Observations**:
 
 - Write your observations here.
+- A larger percent of 1st class survived than any other category. This
+  was followed by 2nd, 3rd, & crew.
+- A larger perent of females survived versus males.
 - Is there anything *fishy* going on in your plot?
-  - (Your response here)
+- Over 300% of 1st class survived which isn’t possible
 
 ### **q5** Create a plot showing the group-proportion of occupants who *did* survive, along with aesthetics for `Class`, `Sex`, *and* `Age`. Document your observations below.
 
@@ -251,10 +258,13 @@ df_prop %>%
 
 **Observations**:
 
-- (Write your observations here.)
+- All the children in 1st & 2nd class survived despite gender
+- Almost all women survived across classes
+- A low percent of men survived across classes
 - If you saw something *fishy* in q4 above, use your new plot to explain
   the fishy-ness.
-  - (Your response here)
+  - The graph in q4 added the adult category and child category together
+    with them also separated by gender too.
 
 # Notes
 
@@ -263,3 +273,7 @@ df_prop %>%
 \[1\] This is basically the same idea as [Dimensional
 Analysis](https://en.wikipedia.org/wiki/Dimensional_analysis); computing
 proportions is akin to non-dimensionalizing a quantity.
+
+**Research Observation** - It’s very easy to skew data to fit a certain
+narrative - Think about what narrative the author of a graph is trying
+to portray and the assumptions that come with that narrative.
