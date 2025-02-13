@@ -53,7 +53,7 @@ print("Nice!")
 
 ```{r q2-task}
 df_q2 <- flights %>% select(everything()) # TODO: Modify to move columns to the front
-df_q2 <- flights %>% select(dest, origin, carrier, everyt)
+df_q2 <- flights %>% select(dest, origin, carrier, everything())
 ```
 
 Use the following to check your code.
