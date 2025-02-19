@@ -53,8 +53,9 @@ In the previous exercise, we learned how to *facet* a graph. Let's use that part
 
 ```{r q2-task}
 mpg %>%
-  ggplot(aes(cty, color = class)) +
-  geom_density()
+  ggplot(aes(cty)) +
+  geom_density() +
+  facet_wrap(~class, scales = "free_y")
 ```
 
 In the reading, we learned that the "most important thing" to keep in mind with `geom_histogram()` and `geom_freqpoly()` is to _explore different binwidths_. We'll explore this idea in the next question.
