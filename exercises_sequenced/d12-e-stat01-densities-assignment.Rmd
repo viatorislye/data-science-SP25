@@ -69,7 +69,8 @@ In `R` we access a density by prefixing its name with the letter `d`.
 ```{r q1-task}
 ## TODO: Complete this code
 df_q1 <-
-  tibble(x = seq(-5, +5, length.out = 100))
+  tibble(x = seq(-5, +5, length.out = 100)) %>% 
+  mutate(d = dunif(x, min = -1, max = +1))
 ```
 
 Use the following test to check your answer.
@@ -154,8 +155,10 @@ df_q2 <- map_dfr(
   c(5, 10, 1e3),
   function(nsamp) {
     tibble(Z = rnorm(n = nsamp), n = nsamp)
-  }
-)
+  })
+df_q2 %>% 
+ggplot(aes(Z, color = n, group = n)) +
+  geom_density()
 ## TODO: Create the figure
 ```
 
@@ -170,7 +173,7 @@ A *very common misconception* is that drawing more samples will make *anything* 
 ### __q3__ Run the code below and inspect the resulting histogram. Increase `n_diamonds` below to increase the number of samples drawn: Do this a few times for an increasing number of samples. Answer the questions under *observations* below.
 
 ```{r q3-task}
-n_diamonds <- 10
+n_diamonds <- 1000
 
 diamonds %>%
   filter(cut == "Good") %>%
