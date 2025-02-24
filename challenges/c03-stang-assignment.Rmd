@@ -1,7 +1,7 @@
 ---
 title: "Aluminum Data"
-author: "(Your name here)"
-date: 2020-
+author: "Leslie Bostwick"
+date: 2025-02-20
 output:
   github_document:
     toc: true
@@ -66,8 +66,16 @@ Note that these data are not tidy! The data in this form are convenient for repo
 
 ```{r q1-task}
 ## TASK: Tidy `df_stang`
+
 df_stang_long <-
-  df_stang
+  df_stang %>% 
+  pivot_longer(
+    names_to = c(".value", "angle"),
+    names_sep = "_",
+    cols = c(-thick,-alloy)
+  ) %>% 
+  filter(E>0) %>% 
+  transform(angle = as.integer(angle))
 
 df_stang_long
 ```
@@ -103,20 +111,37 @@ print("Very good!")
 
 ```{r q2-task}
 ##
+
+df_stang_long %>%   
+  summary()
+
+df_stang_long %>% 
+  count(alloy)
+  
+df_stang_long %>%   
+  count(angle)
+
+df_stang_long %>%   
+  count(thick)
+
+df_stang_long %>%   
+  group_by(thick) %>% 
+  summarise(E_mean = mean(E))
+  
 ```
 
 **Observations**:
 
 - Is there "one true value" for the material properties of Aluminum?
-  - (Your response here)
+  - No, there isn't because all material properties are a range
 - How many aluminum alloys are in this dataset? How do you know?
-  - (Your response here)
+  - There is only one alloy being tested 26 times. I counted the alloy column
 - What angles were tested?
-  - (Your response here)
+  - 0, 45, 90
 - What thicknesses were tested?
-  - (Your response here)
-- (Write your own question here)
-
+  - .022, .032, . 064, .081
+- What is the mean of E by thickness?
+  - For thickness .022, the mean was 10600.00. For thickness .032, the mean was 10383.33. For thickness .064, the mean was 10500.00. For thickness .081, the mean was 9975.00.
 ## Visualize
 <!-- ------------------------- -->
 
@@ -124,11 +149,16 @@ print("Very good!")
 
 ```{r q3-task}
 ## TASK: Investigate your question from q1 here
+df_stang_long %>%   
+  group_by(thick) %>% 
+  ggplot(aes(as.factor(thick), E)) +
+    geom_boxplot()
+
 ```
 
 **Observations**:
 
-- (Address your question from q1 here)
+- For thickness .081, the mean of E is ~1000. For the thickness .064, then mean of E is ~10500. For the thickness .032, the mean of E is ~ 10400. For the thickness .022, the mean is ~10700. The ranges make it harder to tell what the mean is exactly but show a range of the values for each thickness. 
 
 ### __q4__ Consider the following statement:
 
@@ -148,9 +178,9 @@ df_stang_long %>%
 **Observations**:
 
 - Does this graph support or contradict the claim above?
-  - (Your response here)
+  - Contradicts
 - Is this evidence *conclusive* one way or another?
-  - (Your response here)
+  - There is a general trend as the thickness decrease, the nu increases and E increases in value. This shows a correlation between the physical property and the material property. It also makes sense that if there is more material, it's less bendy as there are more atoms packed toward. You can bend a thin skewer more than a pencil before it breaks.
 
 # References
 <!-- -------------------------------------------------- -->
