@@ -87,7 +87,7 @@ Let's learn how to handle this:
 ```{r q1-task}
 ## TASK: Edit to drop all NAs before computing the mean
 flights %>%
-  summarize(dep_delay = mean(dep_delay))
+  summarize(dep_delay = mean(dep_delay, na.rm = TRUE))
 ```
 
 **Observations**:
@@ -166,6 +166,15 @@ flights %>%
   head(5)
 
 ## TASK: Duplicate the code above, but sort by `median` instead
+
+flights %>%
+  group_by(carrier) %>%
+  summarize(
+    mean = mean(dep_delay, na.rm = TRUE),
+    median = median(dep_delay, na.rm = TRUE)
+  ) %>%
+  arrange(desc(median)) %>%
+  head(5)
 ```
 
 **Observations**:
@@ -247,7 +256,7 @@ set.seed(101)
 v_test_iqr <- rnorm(n = 10)
 
 ## TASK: Compute the interquartile range
-test_iqr <- NA_real_
+test_iqr <- quantile(v_test_iqr, probs = 0.75) - quantile(v_test_iqr, probs = 0.25)
 ```
 
 Use the following test to check your answer.
@@ -289,6 +298,15 @@ tibble(
 
 ```{r q4-task}
 ## TODO: Use code from q2 to compute the sd and IQR, rank as before
+
+flights %>%
+  group_by(carrier) %>%
+  summarize(
+    sd = sd(dep_delay, na.rm = TRUE),
+    IQR = IQR(dep_delay, na.rm = TRUE)
+  ) %>%
+  arrange(desc(sd)) %>%
+  head(5)
 ```
 
 **Observations**:

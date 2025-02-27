@@ -87,7 +87,15 @@ beatles_joined <-
 ```{r q2-task}
 df_q2 <-
 ## TODO: Join beatles1 and beatles2 using beatles3 to match rows
-
+  beatles1 %>%
+  left_join(
+    beatles3,
+    by = "name"
+  ) %>%
+  left_join(
+    beatles2,
+    by = "surname"
+  )
 df_q2
 ```
 
@@ -123,7 +131,10 @@ filter the `airports` dataset, or use Google!
 ```{r q3-task}
 criteria <-
 ## TODO: Use expand_grid to create a criteria dataframe
-
+expand.grid(
+  month = c(8, 9),
+dest = c("SJC", "SFO", "OAK")
+)
 criteria
 ```
 
@@ -166,6 +177,10 @@ dataset we built above!
 df_q4 <-
   flights %>%
 ## TODO: Use expand_grid to create a criteria dataframe
+    semi_join(
+    criteria,
+    by = c("dest", "month")
+  )
 
 df_q4
 ```

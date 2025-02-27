@@ -35,7 +35,7 @@ library(gapminder)
 ## TODO: Fix the following code
 gapminder %>%
   filter(continent == "Asia") %>%
-  ggplot(aes(year, lifeExp)) +
+  ggplot(aes(year, lifeExp, color = country)) +
   geom_line()
 ```
 
