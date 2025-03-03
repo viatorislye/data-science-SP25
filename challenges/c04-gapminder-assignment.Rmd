@@ -1,7 +1,7 @@
 ---
 title: "Gapminder"
-author: "(Your name here)"
-date: 2020-
+author: "Leslie Bostwick"
+date: 2025-02-27
 output:
   github_document:
     toc: true
@@ -57,6 +57,20 @@ dataset?
 
 ```{r q0-task}
 ## TASK: Do your "first checks" here!
+gapminder %>% 
+  summary()
+
+gapminder %>% 
+  glimpse()
+
+gapminder %>% 
+  select(pop) %>% 
+  glimpse
+
+gapminder %>% 
+  select(year) %>% 
+  glimpse()
+
 ```
 
 **Observations**:
@@ -69,8 +83,8 @@ dataset?
 
 ```{r q1-task}
 ## TASK: Find the largest and smallest values of `year` in `gapminder`
-year_max <- NA_real_
-year_min <- NA_real_
+year_max <- max(pull(gapminder, year))
+year_min <- min(pull(gapminder, year))
 ```
 
 Use the following test to check your work.
@@ -96,26 +110,57 @@ You may encounter difficulties in visualizing these data; if so document your ch
 
 ```{r q2-task}
 ## TASK: Create a visual of gdpPercap vs continent
+gapminder %>% 
+  filter(year == year_min) %>% 
+  ggplot(aes(continent,gdpPercap, color = continent)) +
+  geom_boxplot()
 ```
 
 **Observations**:
 
-- Write your observations here
+- Asia has a really rich country (Kuwait)
+- Africa has the lowest gdp per cap on average
+- Europe has a more distributed range of country with gdp per cap
 
 **Difficulties & Approaches**:
 
-- Write your challenges and your approach to solving them
+- I struggled with getting the filter to work (understanding the pull() function).
+- It is hard to read the gdp per cap of each Continent when Kuwait changed the whole graph.
+- Oceania only have two country in this date set so I didn't include it while trying to find the outliers.
+
 
 ### __q3__ You should have found *at least* three outliers in q2 (but possibly many more!). Identify those outliers (figure out which countries they are).
 
 ```{r q3-task}
 ## TASK: Identify the outliers from q2
+Top_asia <-
+gapminder %>% 
+  filter(continent == "Asia") %>% 
+  filter(year == year_min) %>% 
+  filter(gdpPercap == max(gdpPercap))
+
+Top_europe <-
+gapminder %>% 
+  filter(continent == "Europe") %>% 
+  filter(year == year_min) %>% 
+  filter(gdpPercap == max(gdpPercap))
+
+Top_america <-
+gapminder %>% 
+  filter(continent == "Americas") %>% 
+  filter(year == year_min) %>% 
+  filter(gdpPercap == max(gdpPercap))
+
+Top_asia
+Top_europe
+Top_america
+
 ```
 
 **Observations**:
 
 - Identify the outlier countries from q2
-  - (Your response here)
+  - I chose the top 3 country with highest gdps on the graph, United States, Switzerland,& Kuwait
 
 *Hint*: For the next task, it's helpful to know a ggplot trick we'll learn in an upcoming exercise: You can use the `data` argument inside any `geom_*` to modify the data that will be plotted *by that geom only*. For instance, you can use this trick to filter a set of points to label:
 
@@ -139,11 +184,24 @@ gapminder %>%
 
 ```{r q4-task}
 ## TASK: Create a visual of gdpPercap vs continent
+gapminder %>% 
+  filter(year == year_min | year == year_max) %>% 
+  ggplot(aes(continent,gdpPercap, fill = as.factor(year))) +
+  geom_boxplot()+
+  geom_point(
+    data = . %>% filter(country %in% c("United States", "Kuwait", "Switzerland")),
+    mapping = aes(color = country),
+    size = 2
+  )+
+  scale_y_log10()
 ```
 
 **Observations**:
 
-- Write your observations here
+- I didn't know how to align the country single values with the as.factor(year).
+- Switzerland was the highest gdp per cap in Europe in 1952 and not longer the highest in 2007.
+- The US is the highest gdp per cap for america in 1952 & 2007.
+- Kuwait was an extreme outlier in 1952 but in 2007 it's the top of the line on the boxplot/the rest of Asia's gdp per cap increased. 
 
 # Your Own EDA
 <!-- -------------------------------------------------- -->
@@ -154,20 +212,34 @@ Now it's your turn! We just went through guided EDA considering the GDP per capi
 
 ```{r q5-task1}
 ## TASK: Your first graph
+gapminder %>% 
+  filter(year == year_max) %>% 
+  ggplot(aes(gdpPercap,lifeExp, color = continent)) +
+  geom_point()+
+  scale_x_log10()
+
 ```
 
-- (Your notes and observations here)
-
+- The higher the gdp per cap a country has, the longer the life expectancy is for those who live in that country
 ```{r q5-task2}
 ## TASK: Your second graph
+gapminder %>% 
+  filter(year == year_max) %>% 
+  ggplot(aes(gdpPercap,pop, color = continent)) +
+  geom_point()+
+  scale_y_log10()
 ```
 
-- (Your notes and observations here)
+- Population and gdp per cap do not have a correlation between each other
 
 ```{r q5-task3}
 ## TASK: Your third graph
+gapminder %>% 
+  ggplot(aes(as.factor(year),gdpPercap)) +
+  geom_boxplot()+
+  scale_y_log10()
 ```
 
-- (Your notes and observations here)
+- The mean gdp per cap has increase but the range of gdp as also increase as time goes on.
 
 
