@@ -43,6 +43,7 @@ mpg %>%
 **Observations**:
 
 - What are some issues with this graph?
+Hard to read
 
 ### __q2__ What are some issues with the following graph? *Don't just say* "it's bad"---use concepts from the required reading.
 

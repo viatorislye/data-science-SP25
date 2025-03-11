@@ -222,7 +222,7 @@ df_samp_unif <-
     1:n_samples,
     function(id) {
       tibble(
-        Z = rnorm(n_observations),
+        Z = runif(n_observations),
         id = id
       )
     }
@@ -269,8 +269,8 @@ Compute the standard error for the sample mean under the following settings. Whi
 
 ```{r q2-task}
 ## TASK: Compute the standard error
-se_q2.1 <- NA_real_ # Population: norm(mean = 2, sd = 4), observations: n = 16
-se_q2.2 <- NA_real_ # Population: norm(mean =-2, sd = 8), observations: n = 32
+se_q2.1 <- 4 / sqrt(16) # Population: norm(mean = 2, sd = 4), observations: n = 16
+se_q2.2 <- 8 / sqrt(32) # Population: norm(mean =-2, sd = 8), observations: n = 32
 ```
 
 Use the following tests to check your work.
@@ -308,7 +308,7 @@ set.seed(101)
 n_sample <- 20
 z_sample <- rnorm(n = n_sample, mean = 2, sd = 4)
 ## TASK: Compute the sample standard error for `z_sample`
-se_sample <- NA_real_
+se_sample <- sd(z_sample)/ sqrt(n_sample)
 ```
 
 Use the following tests to check your work.

@@ -25,7 +25,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r q1-task}
 mpg %>%
   ggplot(aes(displ, hwy, color = class)) +
-  geom_point()
+  geom_point() +
+  guides( color = "none")+
+  theme_void()
 ```
 
 
@@ -72,7 +74,8 @@ mpg %>%
   labs(
     x = "Engine Displacement (L)",
     y = "Highway Fuel Economy (mpg)"
-  )
+  )+
+  theme_common()
 ```
 
 **Observations**:
@@ -86,11 +89,19 @@ Calling `theme_common()`, along with settings `labs()` and making some smart cho
 *Hint*: Use the `theme()` settings from q2 above as a starting point, and read the documentation for `theme()` to learn how to do more horrible things to this graph.
 
 ```{r q3-task}
+
+?theme
+
 mpg %>%
   ggplot(aes(displ, hwy, color = class)) +
   geom_point() +
-  theme(
-    axis.text.x = element_text(size = 32)
+   theme(
+    line = element_line(size = 3, color = "purple"),
+    rect = element_rect(fill = "red"),
+    axis.text.x = element_text(size = 32, angle = 117),
+    axis.text.y = element_text(size = 32, angle = 129),
+    axis.title.x = element_text(size = 32, family = "Comic Sans MS"),
+    axis.title.y = element_text(size = 32, family = "Comic Sans MS")
   )
 ```
 
