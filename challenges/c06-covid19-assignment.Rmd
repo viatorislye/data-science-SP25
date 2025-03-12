@@ -1,7 +1,7 @@
 ---
 title: "COVID-19"
-author: "(Your name here)"
-date: 2020-
+author: "Leslie Bostwick"
+date: 2025-03-12
 output:
   github_document:
     toc: true
@@ -79,7 +79,14 @@ That's the high-level view; now let's dig into the details.
 
 ```{r q1-task}
 ## TASK: Load the census bureau data with the following tibble name.
-df_pop <- NA
+
+filename <- "./data/ACSDT5Y2018.B01003-Data.csv"
+
+## Load the data
+df_pop <- read_csv(filename, skip = 1) %>% 
+  rename_at('Geography', ~'id')
+
+df_pop 
 ```
 
 *Note*: You can find information on 1-year, 3-year, and 5-year estimates [here](https://www.census.gov/programs-surveys/acs/guidance/estimates.html). The punchline is that 5-year estimates are more reliable but less current.
@@ -95,7 +102,7 @@ The New York Times is publishing up-to-date data on COVID-19 on [GitHub](https:/
 
 ```{r q2-task}
 ## TASK: Find the URL for the NYT covid-19 county-level data
-url_counties <- NA_character_
+url_counties <- "https://github.com/nytimes/covid-19-data/raw/refs/heads/master/us-counties.csv"
 ```
 
 Once you have the url, the following code will download a local copy of the data, then load the data into R.
@@ -136,7 +143,9 @@ To join these datasets, we'll need to use [FIPS county codes](https://en.wikiped
 
 ```{r q3-task}
 ## TASK: Create a `fips` column by extracting the county code
-df_q3 <- NA
+df_q3 <- 
+  df_pop %>% 
+  mutate(fips = substr(id, 10, 14))
 ```
 
 Use the following test to check your answer.
@@ -156,7 +165,12 @@ print("Very good!")
 
 ```{r q4-task}
 ## TASK: Join df_covid and df_q3 by fips.
-df_q4 <- NA
+df_q4 <-
+  df_covid %>%
+  left_join(
+    df_q3,
+    by = "fips"
+  )
 ```
 
 Use the following test to check your answer.
@@ -205,6 +219,7 @@ df_data <-
     deaths,
     population = `Estimate!!Total`
   )
+df_data
 ```
 
 # Analyze
@@ -220,7 +235,16 @@ Now that we've done the hard work of loading and wrangling the data, we can fina
 ```{r q5-task}
 ## TASK: Normalize cases and deaths
 df_normalized <-
-  df_data
+  df_data %>% 
+  mutate(
+    cases_per100k = cases/(population/100000),
+    deaths_per100k = deaths/(population/100000),
+    )
+
+df_normalized
+
+
+  
 ```
 
 You may use the following test to check your work.
@@ -289,12 +313,23 @@ Compute the mean and standard deviation for `cases_per100k` and `deaths_per100k`
 
 ```{r q6-task}
 ## TASK: Compute mean and sd for cases_per100k and deaths_per100k
+df_q6 <-
+df_normalized %>% 
+  filter("2020-01-01"<= date & date <= "2020-12-31") %>%
+  summarise(
+    mean_cases = mean(cases_per100k, na.rm = TRUE),
+    mean_deaths = mean(deaths_per100k, na.rm = TRUE),
+    sd_cases = sd(cases_per100k, na.rm = TRUE),
+    sd_deaths = sd(deaths_per100k, na.rm = TRUE),
+  )
+
+df_q6
 ```
 
 - Which rows did you pick?
-  - (Your response here)
+  - I pick the whole year of 2020
 - Why?
-  - (Your response here)
+  - This is when the initial wave of Covid 19 happened and lock down occur and then the slow return to in person work. Vermont was one of the first states to be more in person than other state because by Sept 2021, school was back to in person for all students so my reference of what I consider the pandemic centered around 2020.  
 
 ### __q7__ Find and compare the top 10
 
@@ -302,15 +337,31 @@ Find the top 10 counties in terms of `cases_per100k`, and the top 10 in terms of
 
 ```{r q7-task}
 ## TASK: Find the top 10 max cases_per100k counties; report populations as well
+Max_10_cases <-
+  df_normalized %>% 
+  arrange(desc(cases_per100k)) %>% 
+  head(10)
+
+Max_10_deaths <-
+  df_normalized %>% 
+  arrange(desc(deaths_per100k)) %>% 
+  head(10)
+
+
+Max_10_cases
+Max_10_deaths
 
 ## TASK: Find the top 10 deaths_per100k counties; report populations as well
 ```
 
 **Observations**:
 
-- (Note your observations here!)
+- The largest cases per 100k people by county happen in Loving Texas with 192156.9 cases per 100k but the population of the county was 102 
+- The largest deaths per 100k people by county and death per 100k people in McMullen Texas 1359 deaths per 100k but also had a population of 662.
+- Both of these county are small so if a few people get sick, a larger proportion get sick versus new york city where there is a lot of people but also a lot of people who didn't get sick. 
+
 - When did these "largest values" occur?
-  - (Your response here)
+  - The largest values happened in May 2022 for Loving Texas and February 2022 for McMullen. However this data is count total number of cases and total number of deaths so the census might have updated the population stats for both county on those respective dates, changing the cases/deaths per 100k to drop and no longer stay at the top. 
 
 ## Self-directed EDA
 <!-- ------------------------- -->
@@ -329,6 +380,100 @@ Find the top 10 counties in terms of `cases_per100k`, and the top 10 in terms of
 
 **DO YOUR OWN ANALYSIS HERE**
 
+```{r q8-task}
+df_q8 <-
+df_normalized %>%
+  filter("2020-01-01"<= date & date <= "2020-12-31") %>%
+  group_by(state) %>% 
+  group_by(county) %>% 
+  summarise(
+    mean_cases = mean(cases_per100k, na.rm = TRUE),
+    mean_deaths = mean(deaths_per100k, na.rm = TRUE),
+    mean_population = mean(population, na.rm = TRUE),
+  ) 
+
+Cases_max <- max(pull(df_q8, mean_cases), na.rm = TRUE)
+Deaths_max <- max(pull(df_q8, mean_deaths), na.rm = TRUE)
+
+Top_Cases <-
+  df_q8 %>% 
+  filter(mean_cases == Cases_max)
+
+Top_Deaths <-
+  df_q8 %>% 
+  filter(mean_deaths == Deaths_max)
+
+Top_Cases
+Top_Deaths
+
+df_q8 %>% 
+  ggplot(aes(mean_population,mean_deaths))+
+  geom_point()+
+  geom_point(
+    data = . %>% filter(county %in% c("Emporia city", "Trousdale")),
+    mapping = aes(color = county),
+    size = 2)+
+  scale_x_log10()+
+  theme_minimal() +
+  labs(
+    x = "Mean of Population",
+    y = "Mean of Deaths"
+  )
+```
+
+Emporia City has a huge spike of cases around Nov 2020 which can be connect to why it's an outlier in number of deaths. This graph doesn't show a correlation between mean of the population during 2020 and the number of deaths in each county
+
+```{r q8-task2}
+
+df_normalized %>%
+  filter("2020-01-01"<= date & date <= "2020-12-31") %>%
+  group_by(state) %>% 
+  group_by(county) %>% 
+  summarise(
+    mean_cases = mean(cases_per100k, na.rm = TRUE),
+    mean_deaths = mean(deaths_per100k, na.rm = TRUE),
+    mean_population = mean(population, na.rm = TRUE),
+  ) %>% 
+  ggplot(aes(mean_population,mean_cases))+
+  geom_point()+
+  geom_point(
+    data = . %>% filter(county %in% c("Emporia city", "Trousdale")),
+    mapping = aes(color = county),
+    size = 2)+
+  scale_x_log10()+
+  theme_minimal() +
+  labs(
+    x = "Mean of Population",
+    y = "Mean of Cases"
+  )
+```
+Trousdale has a huge spike of cases in its correctional center in May 2020 which can be connect to why it's an outlier in number of deaths. This graph doesn't show a correlation between mean of the cases during 2020 and the number of deaths in each county. However this graphs has less outliers than the mean of deaths ver mean of populations
+```{r curious}
+#Leslie was curious about VT
+df_normalized %>%
+  filter(
+    state == "Vermont", # Focus on Mass only
+    !is.na(fips), # fct_reorder2 can choke with missing data
+    "2020-01-01"<= date,
+    date <= "2021-05-01"
+  ) %>%
+
+  ggplot(
+    aes(date, cases, color = fct_reorder2(county, date, cases))
+  ) +
+  geom_line() +
+  scale_y_log10() +
+  scale_color_discrete(name = "County") +
+  theme_minimal() +
+  labs(
+    x = "Date",
+    y = "Cases"
+  )
+
+
+```
+I was just curious to see Vermont data from 2020-01-01 to 2020-05-01, because you can see this second rise is number of cases in November of 2021 when hybrid school when switching to always being inside and the heating comes on for winter so there's less fresh air circulation in buildings. 
+
 ### Aside: Some visualization tricks
 <!-- ------------------------- -->
 
@@ -346,7 +491,7 @@ df_normalized %>%
     aes(date, cases_per100k, color = fct_reorder2(county, date, cases_per100k))
   ) +
   geom_line() +
-  scale_y_log10(labels = scales::label_number_si()) +
+  scale_y_log10() +
   scale_color_discrete(name = "County") +
   theme_minimal() +
   labs(
