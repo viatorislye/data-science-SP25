@@ -224,50 +224,46 @@ human judgment.\[2\]
 
 ``` r
 ## TODO: Compare Michelson's estimate and error against the true value
-True <- LIGHTSPEED_VACUUM
-True_E <- LIGHTSPEED_VACUUM - LIGHTSPEED_MICHELSON
-cat("Lightspeed Vacumm", True, "km/s ")
-```
-
-    ## Lightspeed Vacumm 299792.5 km/s
-
-``` r
-cat("True error", True_E, "km/s ")
-```
-
-    ## True error -151.542 km/s
-
-``` r
-Lower_bound <- (LIGHTSPEED_MICHELSON - LIGHTSPEED_PM) 
-Upper_bound<- (LIGHTSPEED_MICHELSON + LIGHTSPEED_PM)
-Error <- LIGHTSPEED_PM
-cat("Michelson's lower bound", Lower_bound, "km/s")
-```
-
-    ## Michelson's lower bound 299893 km/s
-
-``` r
-cat("Michelson's upper bound", Upper_bound, "km/s")
-```
-
-    ## Michelson's upper bound 299995 km/s
-
-``` r
-Range <- Upper_bound- Lower_bound
-cat("Michelson Error", Error, "km/s")
-```
-
-    ## Michelson Error 51 km/s
-
-``` r
-cat("Michelson range", Range, "km/s")
-```
-
-    ## Michelson range 102 km/s
-
-``` r
+#True <- LIGHTSPEED_VACUUM
+#True_E <- LIGHTSPEED_VACUUM - LIGHTSPEED_MICHELSON
+#cat("Lightspeed Vacumm", True, "km/s ")
+#cat("True error", True_E, "km/s ")
+#Lower_bound <- (LIGHTSPEED_MICHELSON - LIGHTSPEED_PM) 
+#Upper_bound<- (LIGHTSPEED_MICHELSON + LIGHTSPEED_PM)
+#Error <- LIGHTSPEED_PM
+#cat("Michelson's lower bound", Lower_bound, "km/s")
+#cat("Michelson's upper bound", Upper_bound, "km/s")
+#Range <- Upper_bound- Lower_bound
+#cat("Michelson Error", Error, "km/s")
+#cat("Michelson range", Range, "km/s")
 ## Your code here!
+
+
+### Correction
+percent_error_uncertainty = abs(LIGHTSPEED_VACUUM - LIGHTSPEED_MICHELSON) / LIGHTSPEED_VACUUM * 100
+percent_error_uncertainty
 ```
+
+    ## [1] 0.05054897
+
+``` r
+#Michelson's error is about 3 times his estimate 
+
+M_Estimate <-LIGHTSPEED_PM
+
+M_Error <- abs(LIGHTSPEED_VACUUM - LIGHTSPEED_MICHELSON)
+
+
+M_Estimate
+```
+
+    ## [1] 51
+
+``` r
+M_Error
+```
+
+    ## [1] 151.542
 
 ``` r
 #df_q2 %>% 
@@ -383,21 +379,24 @@ measurements)
 
 ``` r
 df_q2 %>% 
-  ggplot(aes(Date, VelocityVacuum, color = Distinctness))+geom_point() 
+  ggplot(aes(Date, VelocityVacuum, color = Distinctness))+
+  geom_point() 
 ```
 
 ![](c02-michelson-assignment_files/figure-gfm/q5-1.png)<!-- -->
 
 ``` r
 df_q2 %>%  
-  ggplot(aes(Distinctness, VelocityVacuum, fill = Distinctness))+geom_boxplot()
+  ggplot(aes(Distinctness, VelocityVacuum, fill = Distinctness))+
+  geom_boxplot()
 ```
 
 ![](c02-michelson-assignment_files/figure-gfm/q5-2.png)<!-- -->
 
 ``` r
 df_q2 %>% 
-  ggplot(aes(Temp,VelocityVacuum, color = Distinctness))+geom_point()
+  ggplot(aes(Temp,VelocityVacuum, color = Distinctness))+
+  geom_point()
 ```
 
 ![](c02-michelson-assignment_files/figure-gfm/q5-3.png)<!-- -->

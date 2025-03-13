@@ -146,19 +146,34 @@ problems uncertainty includes some amount of human judgment.[2]
 
 ```{r q3-task}
 ## TODO: Compare Michelson's estimate and error against the true value
-True <- LIGHTSPEED_VACUUM
-True_E <- LIGHTSPEED_VACUUM - LIGHTSPEED_MICHELSON
-cat("Lightspeed Vacumm", True, "km/s ")
-cat("True error", True_E, "km/s ")
-Lower_bound <- (LIGHTSPEED_MICHELSON - LIGHTSPEED_PM) 
-Upper_bound<- (LIGHTSPEED_MICHELSON + LIGHTSPEED_PM)
-Error <- LIGHTSPEED_PM
-cat("Michelson's lower bound", Lower_bound, "km/s")
-cat("Michelson's upper bound", Upper_bound, "km/s")
-Range <- Upper_bound- Lower_bound
-cat("Michelson Error", Error, "km/s")
-cat("Michelson range", Range, "km/s")
+#True <- LIGHTSPEED_VACUUM
+#True_E <- LIGHTSPEED_VACUUM - LIGHTSPEED_MICHELSON
+#cat("Lightspeed Vacumm", True, "km/s ")
+#cat("True error", True_E, "km/s ")
+#Lower_bound <- (LIGHTSPEED_MICHELSON - LIGHTSPEED_PM) 
+#Upper_bound<- (LIGHTSPEED_MICHELSON + LIGHTSPEED_PM)
+#Error <- LIGHTSPEED_PM
+#cat("Michelson's lower bound", Lower_bound, "km/s")
+#cat("Michelson's upper bound", Upper_bound, "km/s")
+#Range <- Upper_bound- Lower_bound
+#cat("Michelson Error", Error, "km/s")
+#cat("Michelson range", Range, "km/s")
 ## Your code here!
+
+
+### Correction
+percent_error_uncertainty = abs(LIGHTSPEED_VACUUM - LIGHTSPEED_MICHELSON) / LIGHTSPEED_VACUUM * 100
+percent_error_uncertainty
+
+#Michelson's error is about 3 times his estimate 
+
+M_Estimate <-LIGHTSPEED_PM
+
+M_Error <- abs(LIGHTSPEED_VACUUM - LIGHTSPEED_MICHELSON)
+
+
+M_Estimate
+M_Error
 
 ```
 
@@ -262,13 +277,16 @@ Differences
 
 ```{r q5}
 df_q2 %>% 
-  ggplot(aes(Date, VelocityVacuum, color = Distinctness))+geom_point() 
+  ggplot(aes(Date, VelocityVacuum, color = Distinctness))+
+  geom_point() 
   
 df_q2 %>%  
-  ggplot(aes(Distinctness, VelocityVacuum, fill = Distinctness))+geom_boxplot()
+  ggplot(aes(Distinctness, VelocityVacuum, fill = Distinctness))+
+  geom_boxplot()
 
 df_q2 %>% 
-  ggplot(aes(Temp,VelocityVacuum, color = Distinctness))+geom_point()
+  ggplot(aes(Temp,VelocityVacuum, color = Distinctness))+
+  geom_point()
 
 ```
 
