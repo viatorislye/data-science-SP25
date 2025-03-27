@@ -24,7 +24,7 @@ Unlike exercises, **challenges will be graded**. The following rubrics define ho
 <!-- ------------------------- -->
 
 | Category    | Needs Improvement                                                                                                | Satisfactory                                                                                                               |
-|--------------|----------------------------|-------------------------------|
+|-------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
 | Effort      | Some task **q**'s left unattempted                                                                               | All task **q**'s attempted                                                                                                 |
 | Observed    | Did not document observations, or observations incorrect                                                         | Documented correct observations based on analysis                                                                          |
 | Supported   | Some observations not clearly supported by analysis                                                              | All observations clearly supported by analysis (table, graph, etc.)                                                        |
@@ -193,7 +193,7 @@ print("Your assertions passed, but make sure they're checking the right thing!")
 -   You chose a correct value of `stat(x, y)` when `x, y` is *outside* the circle. Why did you choose this value?
     -   I chose x =1 & x=1 as it is the farther point in our graph and our circle is centered around 0,0.
 -   You chose a correct value of `stat(x, y)` when `x, y` is *inside* the circle. Why did you choose this value?
-    -   I chose x =.5 & x=.5 as it falls in the center of our graph and is clearly in the orange zone. This is because sqrt(.5^2^  + .5\^2 ) is .7071 which is shorter than the radius of 1.
+    -   I chose x =.5 & x=.5 as it falls in the center of our graph and is clearly in the orange zone. This is because sqrt(.5^2^ + .5\^2 ) is .7071 which is shorter than the radius of 1.
 
 ### **q3** Estimate $\pi$
 
@@ -322,7 +322,7 @@ df_q1 %>%
 
 -   Does your intervals include the true value of $\pi$?
     -   (Bootstrap CI: yes or no?)
-        -    Yes
+        -   Yes
     -   (CLT CI: yes or no?)
         -   Yes
 -   How closely do your bootstrap CI and CLT CI agree?
