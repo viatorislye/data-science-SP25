@@ -40,7 +40,7 @@ df_michelson <-
   select(Date, Distinctness, Temp, Velocity) %>%
   mutate(Distinctness = as_factor(Distinctness))
 
-df_michelson %>% glimpse
+df_michelson %>% glimpse 
 ```
 
 I made this sheet public so that anyone can access it. The line `gs4_deauth()` tells the googlesheets4 package not to ask for login information; this way you can easily load this public sheet, even without having a Google account.
