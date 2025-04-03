@@ -1,7 +1,7 @@
 ---
 title: "The Islands, Part 1: Design"
 author: "Leslie Bostwick"
-date: 2025-04-04
+date: 2025-04-03
 output:
   github_document:
     toc: true
@@ -28,7 +28,7 @@ Unlike exercises, **challenges will be graded**. The following rubrics define ho
 <!-- ------------------------- -->
 
 | Category    | Needs Improvement                                                                                                | Satisfactory                                                                                                               |
-|-------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+|--------------|----------------------------|-------------------------------|
 | Effort      | Some task **q**'s left unattempted                                                                               | All task **q**'s attempted                                                                                                 |
 | Observed    | Did not document observations, or observations incorrect                                                         | Documented correct observations based on analysis                                                                          |
 | Supported   | Some observations not clearly supported by analysis                                                              | All observations clearly supported by analysis (table, graph, etc.)                                                        |
@@ -104,12 +104,12 @@ df_q3 <-
   df_sample_seq %>% 
 ## TODO: Complete this code
     mutate(last_name = sapply(strsplit(as.character(name)," "), function(x) tail(x, 1))) %>%
-    group_by(last_name) %>% 
-    summarise(
-      n = n(),
-      p = n() / nrow(.)
-    ) %>% 
-    arrange(desc(p))
+  group_by(last_name) %>% 
+  summarise(
+   n = n(),
+   p = n() / nrow(.)
+   ) %>% 
+  arrange(desc(p))
 df_q3
 ```
 
@@ -196,7 +196,7 @@ df_sample_random <-
 
 Use the following to check your work.
 
-```{r q3-tests}
+```{r q5-tests}
 ## NOTE: No need to change this
 # Check that the dataset has the correct column names
 assertthat::assert_that(setequal(
