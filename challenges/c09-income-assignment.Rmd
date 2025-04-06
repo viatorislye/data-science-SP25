@@ -1,7 +1,7 @@
 ---
 title: "US Income"
 author: "Leslie Bostwick"
-date: 202X-XX-XX
+date: 2024-04-06
 output:
   github_document:
     toc: true
@@ -26,7 +26,7 @@ Unlike exercises, **challenges will be graded**. The following rubrics define ho
 <!-- ------------------------- -->
 
 | Category    | Needs Improvement                                                                                                | Satisfactory                                                                                                               |
-|-------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+|------------------|--------------------------|----------------------------|
 | Effort      | Some task **q**'s left unattempted                                                                               | All task **q**'s attempted                                                                                                 |
 | Observed    | Did not document observations, or observations incorrect                                                         | Documented correct observations based on analysis                                                                          |
 | Supported   | Some observations not clearly supported by analysis                                                              | All observations clearly supported by analysis (table, graph, etc.)                                                        |
@@ -52,8 +52,7 @@ library(tidyverse)
 
 ```{r q1-task}
 ## TODO: Give the filename for your copy of Table B01003
-filename_pop <- NA_character_
-
+filename_pop <- "./data/ACSDT5Y2018.B01003-Data.csv"
 ## NOTE: No need to edit
 df_pop <-
   read_csv(
@@ -82,7 +81,7 @@ This means that for cases listed as `*****` the US Census Bureau recommends trea
 
 ```{r q2-task}
 ## TODO: Give the filename for your copy of Table S1903
-filename_income <- NA_character_
+filename_income <- "./data/ACSST5Y2018.S1903-Data.csv"
 
 ## NOTE: No need to edit
 df_income <-
@@ -122,6 +121,14 @@ df_q3 <-
   ) %>%
   mutate(across(contains("median"), as.numeric)) %>%
 ## TODO: Pivot the data, rename the columns
+  pivot_longer(
+    names_pattern = "(Estimate|Margin of Error).*(\\d-person families).*",
+    names_to = c(".value","category"),
+    cols = matches("(Estimate|Margin of Error)")
+  ) %>% 
+  rename("income_estimate" = "Estimate", 
+         "income_moe" = "Margin of Error", 
+         "geographic_area_name" = "Geographic Area Name") %>%
   glimpse()
 ```
 
@@ -152,7 +159,14 @@ $$\text{MOE} = 1.645 \times \text{SE}.$$
 
 ```{r q4-task}
 
-df_q4
+df_q4<-
+  df_q3 %>% 
+  mutate(
+    income_SE = income_moe / 1.645,
+    income_CV = income_SE / income_estimate,
+    income_lo = income_estimate - qnorm( 1 - (1 - 0.99) / 2 ) * income_SE,
+    income_hi = income_estimate + qnorm( 1 - (1 - 0.99) / 2 ) * income_SE,
+  )
 ```
 
 Use the following tests to check your work:
@@ -207,7 +221,12 @@ One last wrangling step: We need to join the two datasets so we can compare popu
 ```{r q5-task}
 ## TODO: Join df_q4 and df_pop by the appropriate column
 
-df_data
+df_data<-
+  df_q4 %>%
+  left_join(
+    df_pop,
+    by = "Geography"
+  )
 ```
 
 # Analysis
@@ -246,14 +265,16 @@ df_data %>%
 **Observations**:
 
 -   Document your observations here.
-    -   (Your response here)
-    -   (Your response here)
-    -   ...
+    -   Nantucket has a large error bar going from ~10,000 to 275000 dollars.
+    -   Norfolk seems to have the higher median household income across all households on average for all counties
+    -   Four & five person household tend to have the highest median household income across all counties
 -   Can you confidently distinguish between household incomes in Suffolk county? Why or why not?
-    -   (Your response here)
+    - Sort of as the color help distinguish them from each other however they are so similar it is hard to read
 -   Which counties have the widest confidence intervals?
-    -   (Your response here)
-
+    -   Nantucket has the largest 3 & 5 person confidence interval
+    -   Hampsire has the largest 6 person confidence interval
+    -   Dukes has the largest 2& 4 person confidence interval
+    
 In the next task you'll investigate the relationship between population and uncertainty.
 
 ### **q7** Plot the standard error against population for all counties. Create a visual that effectively highlights the trends in the data. Answer the questions under *observations* below.
@@ -261,14 +282,21 @@ In the next task you'll investigate the relationship between population and unce
 *Hint*: Remember that standard error is a function of *both* variability (e.g. variance) and sample size.
 
 ```{r q7-task}
+df_data %>% 
+  ggplot(aes(population_estimate,income_SE, color = category)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(color = "black") +
+  theme_minimal()
 ```
 
 **Observations**:
 
 -   What *overall* trend do you see between `SE` and population? Why might this trend exist?
-    -   (Your response here)
+    - There seems to be a of a the higher the population estimate is the smaller the income standard error is. This may exist because large population (cities) are located where there is a higher minimum wages and and to afford living in the cities, you must have certain income to afford it. It can also be that there are more income to compare to in cities versus rural communities where outliners can affect the standard error more
 -   What does this *overall* trend tell you about the relative ease of studying small vs large counties?
-    -   (Your response here)
+    -   When there is more people to compare to each other, it is easier to get a more actual estimate. More data points = more realizations
 
 # Going Further
 
@@ -280,11 +308,52 @@ Now it's your turn! You have income data for every county in the United States: 
 
 ```{r q8-task}
 ## TODO: Pose and answer your own question about the data
+df_data %>% 
+  filter(str_detect(geographic_area_name, "Vermont")) %>% 
+  mutate(
+    county = str_remove(geographic_area_name, " County,.*$"),
+    county = fct_reorder(county, income_estimate)
+  ) %>%
+  ggplot(aes(population_estimate, income_estimate)) +
+  geom_point() +
+
+  coord_flip() +
+  labs(
+    x = "Population Estimate by County",
+    y = "Median Household Income",
+  ) +
+  facet_wrap(vars(category))
+```
+
+```{r bonus}
+df_data %>%
+  filter(str_detect(geographic_area_name, "Vermont")) %>%
+  mutate(
+    county = str_remove(geographic_area_name, " County,.*$"),
+    county = fct_reorder(county, income_estimate)
+  ) %>%
+
+  ggplot(aes(county, income_estimate, color = category)) +
+  geom_errorbar(
+    aes(ymin = income_lo, ymax = income_hi),
+    position = position_dodge(width = wid)
+  ) +
+  geom_point(position = position_dodge(width = wid)) +
+
+  coord_flip() +
+  labs(
+    x = "County",
+    y = "Median Household Income"
+  )
+
 ```
 
 **Observations**:
 
--   Document your observations here
+-   I made two graphs
+-   The first graphs did not show a big correlation between population and median income
+-   There is an outlier in county population in Vermont which is Chittenden county, where Burlington is located. This however did not mean they earned the more income by county in Vermont. Only for 2,3,4 person house were that at the top or tied with another county. 
+- I made the second graph as I found it weird that Essex county had an error bar that went from -30,000 to over 150,000 for 6 person households. I think there might just not be many 6 person household in the county. 
 
 Ideas:
 
