@@ -168,7 +168,7 @@ gapminder %>%
 
 **Observations**:
 
-- Write all variable names here
+- Country, continent, year, lifeExp, pop, gdpPercap
 
 ### **q1** Determine the most and least recent years in the `gapminder` dataset.
 
@@ -177,8 +177,15 @@ gapminder %>%
 
 ``` r
 ## TASK: Find the largest and smallest values of `year` in `gapminder`
-year_max <- max(pull(gapminder, year))
-year_min <- min(pull(gapminder, year))
+year_max <-
+  gapminder %>%
+  pull(year) %>%
+  max()
+
+year_min <-
+  gapminder %>%
+  pull(year) %>%
+  min()
 ```
 
 Use the following test to check your work.
@@ -230,7 +237,8 @@ can.
 gapminder %>% 
   filter(year == year_min) %>% 
   ggplot(aes(continent,gdpPercap, color = continent)) +
-  geom_boxplot()
+  geom_boxplot() +
+  scale_y_log10()
 ```
 
 ![](c04-gapminder-assignment_files/figure-gfm/q2-task-1.png)<!-- -->
@@ -255,19 +263,19 @@ gapminder %>%
 ``` r
 ## TASK: Identify the outliers from q2
 Top_asia <-
-gapminder %>% 
+  gapminder %>% 
   filter(continent == "Asia") %>% 
   filter(year == year_min) %>% 
   filter(gdpPercap == max(gdpPercap))
 
 Top_europe <-
-gapminder %>% 
+  gapminder %>% 
   filter(continent == "Europe") %>% 
   filter(year == year_min) %>% 
   filter(gdpPercap == max(gdpPercap))
 
 Top_america <-
-gapminder %>% 
+  gapminder %>% 
   filter(continent == "Americas") %>% 
   filter(year == year_min) %>% 
   filter(gdpPercap == max(gdpPercap))
@@ -336,12 +344,12 @@ variables; think about using different aesthetics or facets.
 gapminder %>% 
   filter(year == year_min | year == year_max) %>% 
   ggplot(aes(continent,gdpPercap, fill = as.factor(year))) +
-  geom_boxplot()+
+  geom_boxplot() +
   geom_point(
     data = . %>% filter(country %in% c("United States", "Kuwait", "Switzerland")),
     mapping = aes(color = country),
     size = 2
-  )+
+  ) +
   scale_y_log10()
 ```
 
@@ -373,21 +381,21 @@ the relationship between variables, or something else entirely.
 gapminder %>% 
   filter(year == year_max) %>% 
   ggplot(aes(gdpPercap,lifeExp, color = continent)) +
-  geom_point()+
+  geom_point() +
   scale_x_log10()
 ```
 
 ![](c04-gapminder-assignment_files/figure-gfm/q5-task1-1.png)<!-- -->
 
-- The higher the gdp per cap a country has, the longer the life
-  expectancy is for those who live in that country
+- Generally, the higher the gdp per cap a country has, the longer the
+  life expectancy is for those who live in that country
 
 ``` r
 ## TASK: Your second graph
 gapminder %>% 
   filter(year == year_max) %>% 
   ggplot(aes(gdpPercap,pop, color = continent)) +
-  geom_point()+
+  geom_point() +
   scale_y_log10()
 ```
 
@@ -400,11 +408,11 @@ gapminder %>%
 ## TASK: Your third graph
 gapminder %>% 
   ggplot(aes(as.factor(year),gdpPercap)) +
-  geom_boxplot()+
+  geom_boxplot() +
   scale_y_log10()
 ```
 
 ![](c04-gapminder-assignment_files/figure-gfm/q5-task3-1.png)<!-- -->
 
-- The mean gdp per cap has increase but the range of gdp as also
+- The mean gdp per cap tends to increase but the spread of gdp as also
   increase as time goes on.
