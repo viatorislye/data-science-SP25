@@ -316,11 +316,8 @@ df_stang_long %>%
   - 0, 45, 90
 - What thicknesses were tested?
   - .022, .032, . 064, .081
-- What is the mean of E by thickness?
-  - For thickness .022, the mean was 10600.00. For thickness .032, the
-    mean was 10383.33. For thickness .064, the mean was 10500.00. For
-    thickness .081, the mean was 9975.00. \## Visualize
-    <!-- ------------------------- -->
+- What is the range of E by thickness? \## Visualize
+  <!-- ------------------------- -->
 
 ### **q3** Create a visualization to investigate your question from q2 above. Can you find an answer to your question using the dataset? Would you need additional information to answer your question?
 
@@ -367,14 +364,12 @@ df_stang_long %>%
 **Observations**:
 
 - Does this graph support or contradict the claim above?
-  - Contradicts
+  - Supports
 - Is this evidence *conclusive* one way or another?
-  - There is a general trend as the thickness decrease, the nu increases
-    and E increases in value. This shows a correlation between the
-    physical property and the material property. It also makes sense
-    that if there is more material, it’s less bendy as there are more
-    atoms packed toward. You can bend a thin skewer more than a pencil
-    before it breaks.
+  - The evidence is not conclusive because thickness .081 could be a
+    trend related thickness to E & nu but thicknesses .022, .032, & .064
+    are all jumble through the top right of the graph. Therefore there
+    isn’t a conclusive answer.
 
 # References
 
