@@ -421,10 +421,10 @@ between vacuum velocity & temperature
 
 - \[1\] Michelson, [Experimental Determination of the Velocity of
   Light](https://play.google.com/books/reader?id=343nAAAAMAAJ&hl=en&pg=GBS.PA115)
-  (1880)
+  1880) 
 - \[2\] Henrion and Fischhoff, [Assessing Uncertainty in Physical
   Constants](https://www.cmu.edu/epp/people/faculty/research/Fischoff-Henrion-Assessing%20uncertainty%20in%20physical%20constants.pdf)
-  (1986)
+  1986) 
 - \[3\] BYU video about a [Fizeau-Foucault
   apparatus](https://www.youtube.com/watch?v=Ik5ORaaeaME), similar to
   what Michelson used.
