@@ -339,11 +339,13 @@ Find the top 10 counties in terms of `cases_per100k`, and the top 10 in terms of
 ## TASK: Find the top 10 max cases_per100k counties; report populations as well
 Max_10_cases <-
   df_normalized %>% 
+  filter(date == max(date)) %>% 
   arrange(desc(cases_per100k)) %>% 
   head(10)
 
 Max_10_deaths <-
   df_normalized %>% 
+  filter(date == max(date)) %>% 
   arrange(desc(deaths_per100k)) %>% 
   head(10)
 
@@ -412,8 +414,8 @@ df_q8 %>%
   geom_point(
     data = . %>% filter(county %in% c("Emporia city", "Trousdale")),
     mapping = aes(color = county),
-    size = 2)+
-  scale_x_log10()+
+    size = 2) +
+  scale_x_log10() +
   theme_minimal() +
   labs(
     x = "Mean of Population",
@@ -439,8 +441,8 @@ df_normalized %>%
   geom_point(
     data = . %>% filter(county %in% c("Emporia city", "Trousdale")),
     mapping = aes(color = county),
-    size = 2)+
-  scale_x_log10()+
+    size = 2) +
+  scale_x_log10() +
   theme_minimal() +
   labs(
     x = "Mean of Population",

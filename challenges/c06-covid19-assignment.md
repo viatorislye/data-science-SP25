@@ -610,11 +610,13 @@ you found in q6. Note any observations.
 ## TASK: Find the top 10 max cases_per100k counties; report populations as well
 Max_10_cases <-
   df_normalized %>% 
+  filter(date == max(date)) %>% 
   arrange(desc(cases_per100k)) %>% 
   head(10)
 
 Max_10_deaths <-
   df_normalized %>% 
+  filter(date == max(date)) %>% 
   arrange(desc(deaths_per100k)) %>% 
   head(10)
 
@@ -623,18 +625,18 @@ Max_10_cases
 ```
 
     ## # A tibble: 10 × 9
-    ##    date       county state fips  cases deaths population cases_per100k
-    ##    <date>     <chr>  <chr> <chr> <dbl>  <dbl>      <dbl>         <dbl>
-    ##  1 2022-05-12 Loving Texas 48301   196      1        102       192157.
-    ##  2 2022-05-13 Loving Texas 48301   196      1        102       192157.
-    ##  3 2022-05-09 Loving Texas 48301   195      1        102       191176.
-    ##  4 2022-05-10 Loving Texas 48301   195      1        102       191176.
-    ##  5 2022-05-11 Loving Texas 48301   195      1        102       191176.
-    ##  6 2022-05-08 Loving Texas 48301   194      1        102       190196.
-    ##  7 2022-05-07 Loving Texas 48301   192      1        102       188235.
-    ##  8 2022-05-05 Loving Texas 48301   191      1        102       187255.
-    ##  9 2022-05-06 Loving Texas 48301   191      1        102       187255.
-    ## 10 2022-05-04 Loving Texas 48301   190      1        102       186275.
+    ##    date       county           state fips  cases deaths population cases_per100k
+    ##    <date>     <chr>            <chr> <chr> <dbl>  <dbl>      <dbl>         <dbl>
+    ##  1 2022-05-13 Loving           Texas 48301   196      1        102       192157.
+    ##  2 2022-05-13 Chattahoochee    Geor… 13053  7486     22      10767        69527.
+    ##  3 2022-05-13 Nome Census Area Alas… 02180  6245      5       9925        62922.
+    ##  4 2022-05-13 Northwest Arcti… Alas… 02188  4837     13       7734        62542.
+    ##  5 2022-05-13 Crowley          Colo… 08025  3347     30       5630        59449.
+    ##  6 2022-05-13 Bethel Census A… Alas… 02050 10362     41      18040        57439.
+    ##  7 2022-05-13 Dewey            Sout… 46041  3139     44       5779        54317.
+    ##  8 2022-05-13 Dimmit           Texas 48127  5760     51      10663        54019.
+    ##  9 2022-05-13 Jim Hogg         Texas 48247  2648     22       5282        50133.
+    ## 10 2022-05-13 Kusilvak Census… Alas… 02158  4084     14       8198        49817.
     ## # ℹ 1 more variable: deaths_per100k <dbl>
 
 ``` r
@@ -642,18 +644,18 @@ Max_10_deaths
 ```
 
     ## # A tibble: 10 × 9
-    ##    date       county   state fips  cases deaths population cases_per100k
-    ##    <date>     <chr>    <chr> <chr> <dbl>  <dbl>      <dbl>         <dbl>
-    ##  1 2022-02-19 McMullen Texas 48311   166      9        662        25076.
-    ##  2 2022-02-20 McMullen Texas 48311   166      9        662        25076.
-    ##  3 2022-02-21 McMullen Texas 48311   166      9        662        25076.
-    ##  4 2022-02-22 McMullen Texas 48311   166      9        662        25076.
-    ##  5 2022-02-23 McMullen Texas 48311   166      9        662        25076.
-    ##  6 2022-02-24 McMullen Texas 48311   167      9        662        25227.
-    ##  7 2022-02-25 McMullen Texas 48311   167      9        662        25227.
-    ##  8 2022-02-26 McMullen Texas 48311   167      9        662        25227.
-    ##  9 2022-02-27 McMullen Texas 48311   167      9        662        25227.
-    ## 10 2022-02-28 McMullen Texas 48311   167      9        662        25227.
+    ##    date       county           state fips  cases deaths population cases_per100k
+    ##    <date>     <chr>            <chr> <chr> <dbl>  <dbl>      <dbl>         <dbl>
+    ##  1 2022-05-13 McMullen         Texas 48311   169      9        662        25529.
+    ##  2 2022-05-13 Galax city       Virg… 51640  2561     78       6638        38581.
+    ##  3 2022-05-13 Motley           Texas 48345   286     13       1156        24740.
+    ##  4 2022-05-13 Hancock          Geor… 13141  1587     90       8535        18594.
+    ##  5 2022-05-13 Emporia city     Virg… 51595  1187     55       5381        22059.
+    ##  6 2022-05-13 Towns            Geor… 13281  2400    116      11417        21021.
+    ##  7 2022-05-13 Jerauld          Sout… 46073   415     20       2029        20453.
+    ##  8 2022-05-13 Loving           Texas 48301   196      1        102       192157.
+    ##  9 2022-05-13 Robertson        Kent… 21201   672     21       2143        31358.
+    ## 10 2022-05-13 Martinsville ci… Virg… 51690  3478    124      13101        26548.
     ## # ℹ 1 more variable: deaths_per100k <dbl>
 
 ``` r
@@ -749,8 +751,8 @@ df_q8 %>%
   geom_point(
     data = . %>% filter(county %in% c("Emporia city", "Trousdale")),
     mapping = aes(color = county),
-    size = 2)+
-  scale_x_log10()+
+    size = 2) +
+  scale_x_log10() +
   theme_minimal() +
   labs(
     x = "Mean of Population",
@@ -783,8 +785,8 @@ df_normalized %>%
   geom_point(
     data = . %>% filter(county %in% c("Emporia city", "Trousdale")),
     mapping = aes(color = county),
-    size = 2)+
-  scale_x_log10()+
+    size = 2) +
+  scale_x_log10() +
   theme_minimal() +
   labs(
     x = "Mean of Population",
