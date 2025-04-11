@@ -167,7 +167,9 @@ df_antibiotics %>%
     values_to = "n",
     cols = c('penicillin', 'streptomycin', 'neomycin')
   ) %>% 
-  
+  mutate(
+    bacteria = fct_reorder(bacteria, n)
+    ) %>% 
   ggplot(aes(bacteria,n, color = gram )) +
   geom_point() +
   facet_wrap(vars(antibiotic))+
@@ -175,7 +177,7 @@ df_antibiotics %>%
   labs(
     x = "Bacteria",
     y = "MIC"
-  )+
+  ) +
   scale_y_log10()
 ```
 
@@ -205,9 +207,10 @@ df_antibiotics %>%
   labs(
     x = "MIC",
     y = "Antibiotic"
-  )+
-  facet_wrap(vars(bacteria))+
-  scale_x_log10()
+  ) +
+  facet_wrap(vars(bacteria)) +
+  scale_x_log10() +
+  theme(strip.text = element_text(size = 6))
 ```
 
 ![](c05-antibiotics-assignment_files/figure-gfm/q1.2-1.png)<!-- -->
@@ -236,7 +239,7 @@ df_antibiotics %>%
   labs(
     x = "Antibiotic",
     y = "MIC"
-  )+
+  ) +
   scale_y_log10()
 ```
 
@@ -262,12 +265,14 @@ df_antibiotics %>%
   ) %>% 
   group_by(bacteria) %>% 
   ggplot(aes(bacteria,antibiotic )) +
-  geom_bin_2d(aes(fill = log10(n)),color = "grey50")+
+  geom_bin_2d(aes(fill = log10(n)),color = "grey50") +
   coord_flip() +
   labs(
     x = "Bacteria",
     y = "Antibiotic"
-  )
+  ) +
+  geom_text(aes(label = log10(n)), color = "white", size = 2) +
+  scale_fill_continuous(name = "log10(MIC)") 
 ```
 
 ![](c05-antibiotics-assignment_files/figure-gfm/q1.4-1.png)<!-- -->
@@ -292,14 +297,14 @@ df_antibiotics %>%
   ) %>%   
   group_by(bacteria) %>% 
   ggplot(aes(bacteria,n)) +
-  geom_point(aes(shape=antibiotic, color=antibiotic))+
-  facet_wrap(vars(gram))+
-  coord_flip()+
+  geom_point(aes(shape=antibiotic, color=antibiotic)) +
+  facet_wrap(~gram, scales = "free_x") +
   labs(
     x = "Bacteria",
     y = "MIC"
-  )+
-  scale_y_log10()
+  ) +
+  scale_y_log10() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
 ![](c05-antibiotics-assignment_files/figure-gfm/q1.5-1.png)<!-- -->
@@ -325,18 +330,27 @@ opportunity to think about why this is.**
 
 *Observations* - What is your response to the question above?
 
-- I do not have any graphs that split by genera so it’s a bit difficult
-  to answer based on that. But I can answer the based on Gram stain. For
-  neomycin & streptomycin, the gram stain didn’t seem to have a
-  correlation with the amount of neomycin & streptomycin needed.
-  However,for penicillin, the negative gram had a lower MIC while gram
-  positive had much high MIC. This predicts a possible correlation
-  between gram strain and their MIC need for the antibiotic penicillin,
+- Gram stain
+
+  - For neomycin & streptomycin, the gram stain didn’t seem to have a
+    correlation with the amount of neomycin & streptomycin needed.
+  - However,for penicillin, the negative gram had a lower MIC while gram
+    positive had much high MIC. This predicts a possible correlation
+    between gram strain and their MIC need for the antibiotic
+    penicillin.
+
+- Genera
+
+  - For staphylococcus, neomycim gave the lowest MIC, then was
+    penicillin and then streptomycin.
+  - For salmonella, neomcyin also gave the lowest MIC but wasn’t as low
+    as staphylococcus’s MIC.
+  - For streptococcus, penicillin gave the lowest MIC.
 
 - Which of your visuals above (1 through 5) is **most effective** at
   helping to answer this question?
 
-  - Graph 3
+  - Graph 5
 
 - Why?
 
