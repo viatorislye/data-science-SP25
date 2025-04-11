@@ -333,7 +333,7 @@ df_q3 %>%
 
     ## Rows: 1
     ## Columns: 1
-    ## $ pi_est <dbl> 3.184
+    ## $ pi_est <dbl> 3.154
 
 Use the following to check that you’ve used the correct variable names.
 (NB. This does not check correctness.)
@@ -395,8 +395,8 @@ df_q4 <-
           # code you wrote for q3
           mutate(
             estimate = stat(x, y)
-            ) %>% 
-            summarise(
+          ) %>% 
+          summarise(
             pi_est = mean(estimate)
           ) %>% 
           pull(pi_est)
@@ -418,7 +418,7 @@ df_q4 %>%
 
 - What is a range of plausible values, based on the sampling
   distribution you’ve generated?
-  - 3.13 to 3.16
+  - 3.13 to 3.16 because that is where the majority of the data is.
 
 ### **q5** Bootstrap percentile confidence interval
 
@@ -435,8 +435,8 @@ df_q5 <-
   summarise(
     # TODO: Compute pi_lo and pi_up
     se = sd(pi_est),
-    pi_lo = mean(pi_est) - (qnorm( .05 / 2 ))*se,
-    pi_up = mean(pi_est) + (qnorm(.05/ 2 ))*se
+    pi_lo = mean(pi_est) - (qnorm(.05 / 2)) * se,
+    pi_up = mean(pi_est) + (qnorm(.05 / 2)) * se
     )
 
 df_q5
@@ -445,7 +445,7 @@ df_q5
     ## # A tibble: 1 × 3
     ##       se pi_lo pi_up
     ##    <dbl> <dbl> <dbl>
-    ## 1 0.0157  3.22  3.15
+    ## 1 0.0166  3.19  3.12
 
 ### **q6** CLT confidence interval
 
@@ -468,15 +468,15 @@ df_q1 %>%
   summarise(
     mean = mean(estimate),
     se = (sd(estimate) / sqrt(n)),
-    pi_lo = mean - (qnorm( .05 / 2 ))*se,
-    pi_up = mean + (qnorm(.05/ 2 ))*se
+    pi_lo = mean - (qnorm(.05 / 2)) * se,
+    pi_up = mean + (qnorm(.05 / 2)) * se
   )
 ```
 
     ## # A tibble: 1 × 4
     ##    mean     se pi_lo pi_up
     ##   <dbl>  <dbl> <dbl> <dbl>
-    ## 1  3.18 0.0161  3.22  3.15
+    ## 1  3.15 0.0163  3.19  3.12
 
 **Observations**:
 

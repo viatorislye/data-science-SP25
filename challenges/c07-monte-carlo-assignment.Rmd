@@ -24,7 +24,7 @@ Unlike exercises, **challenges will be graded**. The following rubrics define ho
 <!-- ------------------------- -->
 
 | Category    | Needs Improvement                                                                                                | Satisfactory                                                                                                               |
-|-------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+|--------------|----------------------------|-------------------------------|
 | Effort      | Some task **q**'s left unattempted                                                                               | All task **q**'s attempted                                                                                                 |
 | Observed    | Did not document observations, or observations incorrect                                                         | Documented correct observations based on analysis                                                                          |
 | Supported   | Some observations not clearly supported by analysis                                                              | All observations clearly supported by analysis (table, graph, etc.)                                                        |
@@ -257,8 +257,8 @@ df_q4 <-
           # code you wrote for q3
           mutate(
             estimate = stat(x, y)
-            ) %>% 
-            summarise(
+          ) %>% 
+          summarise(
             pi_est = mean(estimate)
           ) %>% 
           pull(pi_est)
@@ -275,7 +275,7 @@ df_q4 %>%
 *Observations*
 
 -   What is a range of plausible values, based on the sampling distribution you've generated?
-    -   3.13 to 3.16
+    -   3.13 to 3.16 because that is where the majority of the data is.
 
 ### **q5** Bootstrap percentile confidence interval
 
@@ -290,8 +290,8 @@ df_q5 <-
   summarise(
     # TODO: Compute pi_lo and pi_up
     se = sd(pi_est),
-    pi_lo = mean(pi_est) - (qnorm( .05 / 2 ))*se,
-    pi_up = mean(pi_est) + (qnorm(.05/ 2 ))*se
+    pi_lo = mean(pi_est) - (qnorm(.05 / 2)) * se,
+    pi_up = mean(pi_est) + (qnorm(.05 / 2)) * se
     )
 
 df_q5
@@ -313,8 +313,8 @@ df_q1 %>%
   summarise(
     mean = mean(estimate),
     se = (sd(estimate) / sqrt(n)),
-    pi_lo = mean - (qnorm( .05 / 2 ))*se,
-    pi_up = mean + (qnorm(.05/ 2 ))*se
+    pi_lo = mean - (qnorm(.05 / 2)) * se,
+    pi_up = mean + (qnorm(.05 / 2)) * se
   )
 ```
 
