@@ -136,11 +136,10 @@ you still need to count, because your numbers *will* be different!
   - 96%
 - Are there any sources of *real* uncertainty in the percent occupied
   you calculated?
-  - No, there should not be any real uncertainty
+  - Yes, because people move houses over time
 - Are there any sources of *erroneous* uncertainty in the percent
   occupied you calculated?
-  - No, there should not be any real uncertainty unless there was a
-    missed house in the count
+  - Yes, I could have miss counted the houses
 
 Zach looked at the first 25 homes in Helvig and recorded the `age` and
 `name` of every person in those homes. These people are provided in
@@ -226,7 +225,7 @@ df_q3
     ## 10 Chunduri      2 0.0317
     ## # ℹ 18 more rows
 
-Use the following to check your work.
+- Use the following to check your work.
 
 ``` r
 ## NOTE: No need to change this
@@ -436,7 +435,7 @@ df_sample_random %>%
 
 - Did you find any highly prevalent names using `df_sample_random` that
   you *didn’t* find in q3 (using `df_sample_seq`)? Write them here.
-  - Collins, Blomgren, Jensen, Regan, Sorensen, Burke, Edwards
+  - Collins, Jensen, Regan, Burke, Edwards
 - Is there any reason that people with the same last name might tend to
   *live near each other*?
   - They are extend family members that want to be close to other family

@@ -28,7 +28,7 @@ Unlike exercises, **challenges will be graded**. The following rubrics define ho
 <!-- ------------------------- -->
 
 | Category    | Needs Improvement                                                                                                | Satisfactory                                                                                                               |
-|-------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+|--------------|----------------------------|-------------------------------|
 | Effort      | Some task **q**'s left unattempted                                                                               | All task **q**'s attempted                                                                                                 |
 | Observed    | Did not document observations, or observations incorrect                                                         | Documented correct observations based on analysis                                                                          |
 | Supported   | Some observations not clearly supported by analysis                                                              | All observations clearly supported by analysis (table, graph, etc.)                                                        |
@@ -76,9 +76,9 @@ NB. When Zach counted the homes (on 2025-01-08), he found 20 unoccupied out of 5
 -   What percent of homes are *occupied*?
     -   96%
 -   Are there any sources of *real* uncertainty in the percent occupied you calculated?
-    -   No, there should not be any real uncertainty
+    -   Yes, because people move houses over time
 -   Are there any sources of *erroneous* uncertainty in the percent occupied you calculated?
-    -   No, there should not be any real uncertainty unless there was a missed house in the count
+    -   Yes, I could have miss counted the houses
 
 Zach looked at the first 25 homes in Helvig and recorded the `age` and `name` of every person in those homes. These people are provided in `helvig-seq.csv`.
 
@@ -113,7 +113,7 @@ df_q3 <-
 df_q3
 ```
 
-Use the following to check your work.
+-   Use the following to check your work.
 
 ```{r q3-tests}
 ## NOTE: No need to change this
@@ -254,7 +254,7 @@ df_sample_random %>%
 *Observations*
 
 -   Did you find any highly prevalent names using `df_sample_random` that you *didn't* find in q3 (using `df_sample_seq`)? Write them here.
-    -   Collins, Blomgren, Jensen, Regan, Sorensen, Burke, Edwards
+    -   Collins, Jensen, Regan, Burke, Edwards
 -   Is there any reason that people with the same last name might tend to *live near each other*?
     -   They are extend family members that want to be close to other family members
 
