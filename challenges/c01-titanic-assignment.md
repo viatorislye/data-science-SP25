@@ -152,7 +152,7 @@ df_titanic %>% summarize(total = sum(n))
 ## TASK: Visualize counts against `Class` and `Sex`
 df_titanic %>% 
   filter(Survived == "Yes") %>% 
-  ggplot(aes(Class,n, fill= Sex))+
+  ggplot(aes(Class, n, fill = Sex)) +
   geom_col(position = "dodge")
 ```
 
@@ -211,7 +211,7 @@ df_prop
 ``` r
 df_prop %>% 
   filter(Survived == "Yes") %>% 
-  ggplot(aes(Class,Prop, fill= Sex))+
+  ggplot(aes(Class, Prop, fill= Sex)) +
   geom_col(position = "dodge")
 ```
 
@@ -238,8 +238,8 @@ additional variables!
 df_prop %>% 
   filter(Survived == "Yes") %>%
   filter(Sex == "Female") %>% 
-  ggplot(aes(Class,Prop, fill = Sex))+
-  geom_col()+ 
+  ggplot(aes(Class, Prop, fill = Sex)) +
+  geom_col() + 
   facet_grid(rows = "Age")
 ```
 
@@ -252,7 +252,9 @@ df_prop %>%
 df_prop %>% 
   filter(Survived == "Yes") %>%
   filter(Sex == "Male") %>% 
-  ggplot(aes(Class,Prop, fill = Sex))+geom_col() + facet_grid(rows = "Age")
+  ggplot(aes(Class, Prop, fill = Sex)) + 
+  geom_col() +
+  facet_grid(rows = "Age")
 ```
 
     ## Warning: Removed 1 row containing missing values or values outside the scale range
