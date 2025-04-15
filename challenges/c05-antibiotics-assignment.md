@@ -200,6 +200,9 @@ df_antibiotics %>%
     names_to = "antibiotic",
     values_to = "n",
     cols = c('penicillin', 'streptomycin', 'neomycin')
+  ) %>%   
+  mutate(
+    bacteria = fct_reorder(bacteria, n)
   ) %>% 
   group_by(bacteria) %>% 
   ggplot(aes(n, antibiotic, color = gram, fill = gram )) +
@@ -232,6 +235,9 @@ df_antibiotics %>%
     values_to = "n",
     cols = c('penicillin', 'streptomycin', 'neomycin')
   ) %>% 
+  mutate(
+    bacteria = fct_reorder(bacteria, n)
+  ) %>% 
   group_by(bacteria) %>% 
   ggplot(aes(antibiotic,n, color = gram, fill = gram )) +
   geom_point() +
@@ -262,6 +268,9 @@ df_antibiotics %>%
     names_to = "antibiotic",
     values_to = "n",
     cols = c('penicillin', 'streptomycin', 'neomycin')
+  ) %>% 
+  mutate(
+    bacteria = fct_reorder(bacteria, n)
   ) %>% 
   group_by(bacteria) %>% 
   ggplot(aes(bacteria,antibiotic )) +
@@ -294,7 +303,10 @@ df_antibiotics %>%
     names_to = "antibiotic",
     values_to = "n",
     cols = c('penicillin', 'streptomycin', 'neomycin')
-  ) %>%   
+  ) %>%
+  mutate(
+    bacteria = fct_reorder(bacteria, n)
+  ) %>% 
   group_by(bacteria) %>% 
   ggplot(aes(bacteria,n)) +
   geom_point(aes(shape=antibiotic, color=antibiotic)) +
