@@ -237,12 +237,12 @@ There are **two questions** below; use your five visuals to help answer both Gui
 - What is your response to the question above?
 
   - Gram stain
-    - For neomycin & streptomycin, the gram stain didn't seem to have a correlation with the amount of neomycin & streptomycin needed. 
-    - However,for penicillin, the negative gram had a lower MIC while gram positive had much high MIC. This predicts a possible correlation between gram strain and their MIC need for the antibiotic penicillin.
+    - For neomycin & streptomycin, the gram stain generally didn't seem to have a correlation with the amount of neomycin & streptomycin needed. 
+    - However,for penicillin, the negative gram generally had a lower MIC while gram positive generally had much high MIC. This predicts a possible correlation between gram strain and their MIC need for the antibiotic penicillin.
   - Genera
-    - For staphylococcus, neomycim gave the lowest MIC, then was penicillin and then streptomycin. 
-    - For salmonella, neomcyin also gave the lowest MIC but wasn't as low as staphylococcus's MIC.
-    - For streptococcus, penicillin gave the lowest MIC.
+    - For staphylococcus, neomycim generally gave the lowest MIC, then was penicillin and then streptomycin. 
+    - For salmonella, neomcyin also generally gave the lowest MIC but wasn't as low as staphylococcus's MIC.
+    - For streptococcus, penicillin generally gave the lowest MIC.
   
 - Which of your visuals above (1 through 5) is **most effective** at helping to answer this question?
  
