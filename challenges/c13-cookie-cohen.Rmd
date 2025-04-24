@@ -215,3 +215,24 @@ ggplot(aes(Yummy, n)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 ```
+
+```{r top3 file}
+filename_top3<- "./data/top3.csv"
+## NOTE: No need to edit
+df_top3 <-
+  read_csv(
+    filename_top3,
+  )
+
+df_top3
+```
+
+```{r top3 correlation}
+
+top3 <- 
+  df_top3 %>% 
+  filter(Name == "First" | Name == "Second" | Name == "Third")
+
+kappam.light(top3)
+```
+

@@ -551,3 +551,51 @@ ggplot(aes(Yummy, n)) +
 ```
 
 ![](c13-cookie-cohen_files/figure-gfm/graph2-1.png)<!-- -->
+
+``` r
+filename_top3<- "./data/top3.csv"
+## NOTE: No need to edit
+df_top3 <-
+  read_csv(
+    filename_top3,
+  )
+```
+
+    ## Rows: 4 Columns: 7
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (7): Name, Oliver, Sparsh, Crane, Maya, ZDR, LilyDao
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+df_top3
+```
+
+    ## # A tibble: 4 × 7
+    ##   Name       Oliver            Sparsh            Crane       Maya  ZDR   LilyDao
+    ##   <chr>      <chr>             <chr>             <chr>       <chr> <chr> <chr>  
+    ## 1 First      10_fancy_fridge   10_fancy_fridge   10_fancy_f… 5_fa… 15_f… 10_che…
+    ## 2 Second     15_fancy_fridge   15_fancy_fridge   15_fancy_f… 15_f… 15_f… 10_exp…
+    ## 3 Third      10_fancy_nofridge 10_fancy_nofridge 10_fancy_n… 10_f… 15_c… 15_che…
+    ## 4 best_cheap 15_cheap_fridge   15_cheap_fridge   15_cheap_f… 10_c… 15_c… 10_che…
+
+``` r
+top3 <- 
+  df_top3 %>% 
+  filter(Name == "First" | Name == "Second" | Name == "Third")
+
+kappam.light(top3)
+```
+
+    ## Warning in sqrt(varkappa): NaNs produced
+
+    ##  Light's Kappa for m Raters
+    ## 
+    ##  Subjects = 3 
+    ##    Raters = 7 
+    ##     Kappa = 0.131 
+    ## 
+    ##         z = NaN 
+    ##   p-value = NaN
