@@ -217,10 +217,26 @@ summary(df_data)
 
 - What are the basic facts about this dataset?
 - During the data collection of this dataset
-  - In the state of MA, the number of MA vehicles pull over was 3053713
-  - There were 55830 searchs conducted
+  - In the state of MA, the number of MA vehicles pull over was 3053713,
+    then CT with 82906, NY with 69059, NH with 51514, and then RI
+    with 39375. There is also 109857 in the other category and 9814 NA.
+  - There were 55830 searches conducted
   - There were 3602 frisk performed
   - This data was collected from 1-1-2007 to 12-31-2015
+  - Twice as many men got stopped versus female
+  - White people were stopped the most, followed by Black people,
+    Hispanic people, and then Asian/Pacific islander. However 11008
+    citation were listed as other and there were 916 NAs.
+  - There were no pedestrian stops which makes sense as this was a data
+    set on highway stops
+  - The youngest age pulled over was 10, the median age was 34, the mean
+    age was 36.47 with the oldest age that was pulled over was 94.
+    However there are 158006 NAs in this column, so a good portion of
+    this pull over are missing this information.
+  - In this data set, there are a lot of NAs through which is concern as
+    there is lost information in that missing info. Whether it was a
+    officer being lazy, was unsure or trying to hide something, we do
+    not know nor will ever.
 - …
 
 Note that we have both a `subject_race` and `race_Raw` column. There are
@@ -566,7 +582,6 @@ filter(
 ) %>%   
 mutate(
     subject_race = fct_relevel(subject_race, "white"),
-    contraband_found = ifelse(is.na(contraband_found), FALSE, contraband_found)
 ) %>% 
 glm(
     formula = arrest_made ~ subject_age + subject_race + subject_sex + contraband_found,
@@ -579,18 +594,20 @@ fit_q8 %>% tidy()
     ## # A tibble: 6 × 5
     ##   term                 estimate std.error statistic   p.value
     ##   <chr>                   <dbl>     <dbl>     <dbl>     <dbl>
-    ## 1 (Intercept)           -3.31    0.0113      -293.  0        
-    ## 2 subject_age           -0.0101  0.000284     -35.4 1.34e-274
-    ## 3 subject_raceblack      0.351   0.0105        33.3 1.14e-242
-    ## 4 subject_racehispanic   0.880   0.00885       99.5 0        
-    ## 5 subject_sexfemale     -0.694   0.00921      -75.4 0        
-    ## 6 contraband_foundTRUE   3.02    0.0135       223.  0
+    ## 1 (Intercept)           -1.72    0.0339      -50.8  0        
+    ## 2 subject_age            0.0225  0.000866     26.0  2.19e-149
+    ## 3 subject_raceblack     -0.0511  0.0270       -1.90 5.80e-  2
+    ## 4 subject_racehispanic   0.221   0.0237        9.31 1.32e- 20
+    ## 5 subject_sexfemale     -0.306   0.0257      -11.9  1.06e- 32
+    ## 6 contraband_foundTRUE   0.609   0.0192       31.7  4.29e-221
 
 **Observations**:
 
 - How does controlling for found contraband affect the `subject_race`
   terms in the model?
-  - It dropped both estimate by ~.02 for hispanic & black individuals.
+  - For the estimate compare to White individuals, Hispanics individuals
+    dropped to .22 while Black individuals drop to -.05 so they were
+    even less likely to have contraband found that white individuals.  
 - What does the *finding of contraband* tell us about the stop? What
   does it *not* tell us about the stop?
   - It tells us that a search occurred that was likely to lead to an
