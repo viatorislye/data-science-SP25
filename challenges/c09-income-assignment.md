@@ -529,8 +529,12 @@ df_data %>%
     affect the standard error more
 - What does this *overall* trend tell you about the relative ease of
   studying small vs large counties?
-  - When there is more people to compare to each other, it is easier to
-    get a more actual estimate. More data points = more realizations
+  - When there is more people in a sample size (such as 10% of the
+    populations) to compare to each other, it is easier to get a more
+    actual estimate. For example if a small county has a population of
+    10k versus a larger county of 500K, 10% for the small county is just
+    1k people to compare versus the large county 10% that is 50k people
+    to compare to one another.
 
 # Going Further
 
